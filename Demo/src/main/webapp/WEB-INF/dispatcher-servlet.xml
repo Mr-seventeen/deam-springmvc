@@ -3,19 +3,32 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--spring mvc 提供的一键式配置方法，此标签会让spring mvc 帮我们自动做一些注册组件 原理？待解析-->
+    <!--spring mvc 提供的一键式配置方法，此标签会让spring mvc 帮我们自动做一些注册组件 -->
+    <!--扫描对应的控制器-->
+    <context:component-scan base-package="com.example"/>
+    <!--开启注解驱动，简化配置-->
     <!-- 添加后将不会全部使用默认配置 AnnotationDrivenBeanDefinitionParser -->
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.example"/>
-
+    <!--启动默认的Servlet映射器，用于处理静态资源-->
+    <mvc:default-servlet-handler/>
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--文件上传解析器，需要添加Apache common fileUpload依赖-->
+    <bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="4096000"/>
+        <property name="maxInMemorySize" value="20000"/>
+    </bean>
 
     <!--只扫描controller-->
     <!--<context:component-scan base-package="com.example" use-default-filters="false">-->
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     <!--</context:component-scan>-->
 </beans>
+
