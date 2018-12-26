@@ -1,11 +1,19 @@
-#Spring MVC 
+# Spring MVC （1）
+
+###模块一、Spring MVC 配置文件
+
+###模块二、Spring MVC 自身的创建过程
+
+首先我们先看一下一个Spring MVC的项目的结构
 
 
-## 1、配置文件
+## 1、SpringMVC的核心配置文件
 ---
-SpringMVC的核心配置文件是构成SpringMVC应用程序的必要元素之一。
-SpringMVC的核心配置文件是架起DispatcherServlet与WebApplicationContext之间的桥梁。
-SpringMVC的核心配置文件是SpringMVC中所有组件的定义窗口，通过它我们可以指定整个SpringMVC的行为方式。
+它是构成SpringMVC应用程序的必要元素之一。
+
+它是架起DispatcherServlet与WebApplicationContext之间的桥梁。
+
+它是SpringMVC中所有组件的定义窗口，通过它我们可以指定整个SpringMVC的行为方式。
 
 
 - **pom.xml**
@@ -37,7 +45,7 @@ SpringMVC的核心配置文件是SpringMVC中所有组件的定义窗口，通�
 > 
 > 每个xml文件都有定义它书写规则的Schema文件。web.xml的模式文件是由Sun 公司定义的，每个web.xml文件的根元素为<web-app>中，必须标明这个web.xml使用的是哪个模式文件。
 
-IMG插入 web.xml图片
+
 
 1、命名与定制URL。我们可以为Servlet和JSP文件命名并定制URL,其中定制URL是依赖命名的，命名必须在定制URL前。下面拿serlet来举例：
  
@@ -190,7 +198,7 @@ IMG插入 servlet.xml图片
 >> 使用<mvc:annotation-driven/>代替上面的注解映射器和注解适配器配置，<mvc:annotation-driven/>默认加载很多的参数绑定方法，比如json转换，使用<mvc:annotation-driven/>就可以不用配置上面两个了
 >> 如果controller很多，我们可以用component-scan来扫描
 
-
+## ！！！此处插入mvc:annotation-driven是怎么实现的 ##
 ---
 ---
 至此完成简单的配置工作，在项目里增加Controller，page即可通过URL访问成功，那么项目是如何编译运行让url可以解析到类的，这个其实之前已经简单的提过了，我们随后做更详细的描述：
@@ -198,9 +206,13 @@ IMG插入 servlet.xml图片
 # 2、URL访问类的路径，即spring mvc核心，Spring MVC自身的创建过程
 ---
 如下图所示，项目在启动编译的时候根据我们之前配置的xml文件解析
-> 此处图片一张，画出项目启动访问的类及类的方法
 
-> 此处图片一张，DispatcherServlet类图
+！！！> 此处图片一张，画出项目启动访问的类及类的方法
+
+！！！> 此处图片一张，DispatcherServlet类图
+
+！！！ 搞清楚EnvironmentCapable、EnvironmentAware和ApplicationContextAware怎么读
+
 > 可以看到在Servlet的继承结构中有一共有5个类，GenericServlet和HttpServlet在java中，剩下的三个类HttpServletBean、FrameworkServlet和DispatcherServlet是Spring MVC中的，这三个类直接实现三个接口：EnvironmentCapable、EnvironmentAware和ApplicationContextAware。
 > 
 > **XXXWare**在Spring里表示对XXX可以感知，通俗点解释就是：如果在某个类里面想要使用spring的一些东西，就可以通过实现XXXWare接口告诉Spring，Spring看到后就会给你送过来，而接收的方式是通过实现接口唯一的方法set-XXX。
@@ -226,6 +238,7 @@ IMG插入 servlet.xml图片
 		    	try {
 			    	//将Servlet中配置的参数封装到pvs变量中，requiredProperties为必需参数，如果没有配置将报异常
 			    	PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
+					//使用PropertyAccessorFactory封装成BeanWrapper，那么BeanWrapper是什么呢？
 			    	BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this);
 			    	ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext());
 			    	bw.registerCustomEditor(Resource.class, new ResourceEditor(resourceLoader, getEnvironment()));
@@ -252,7 +265,7 @@ IMG插入 servlet.xml图片
     	...
     	}
 
-？？BeanWrapper是什么，怎么用
+！！！BeanWrapper是什么，怎么用
 
 
 2. **FrameworkServlet**

@@ -3,6 +3,7 @@ package com.example.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletException;
@@ -28,6 +29,11 @@ public class HelloWebDispatcherServlet extends DispatcherServlet {
 
     @Override
     protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    @Override
+    public void postProcessWebApplicationContext(ConfigurableWebApplicationContext wac){
 
     }
 

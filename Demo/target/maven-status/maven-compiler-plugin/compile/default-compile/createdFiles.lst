@@ -1,1 +1,4 @@
 com\example\controller\HelloWebDispatcherServlet.class
+com\example\controller\TestEnvironmentAwareController.class
+com\example\controller\HelloController.class
+com\example\controller\TestEnvironmentCapableController.class
