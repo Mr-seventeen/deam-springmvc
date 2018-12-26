@@ -1,8 +1,8 @@
 # Spring MVC分享(1)
 
-###模块一、Spring MVC 配置文件
+### 模块一、Spring MVC 配置文件
 
-###模块二、Spring MVC 自身的创建过程
+### 模块二、Spring MVC 自身的创建过程
 
 ---
 
@@ -25,7 +25,7 @@
 一个简单的Sping MVC项目中用到的配置文件主要有**pom.xml、web.xml、*-servlet.xml** 这三类
 
 - pom.xml
-- 
+-- 
 > 在pom文件中引入servlet和spring mvc的依赖
 >
     <!--spring mvc 引入-->
@@ -42,7 +42,7 @@
 
 
 - web.xml
-- 
+-- 
 > web.xml文件是用来初始化配置信息：比如Welcome页面、servlet、servlet-mapping、filter、listener、启动加载级别等。
 > 在配置文件中我们可以指定SpringMVC的入口程序DispatcherServlet，同时指定了一个或多个核心配置文件（[servlet-name]-servlet.xml）。Spring官方文档上推荐的默认的文件名是[servlet-name]-servlet.xml文件。
 > 
@@ -84,7 +84,7 @@
 	</listener>
 
 - *-servlet.xml
-- 
+-- 
 > 在DispatcherServlet初始化时，会根据配置的参数获取相应的配置文件并解析。DispatcherServlet通过configureAndRefreshWebApplicationContext配置文件解析，这个在后面会讲到，这儿先一笔带过。
 > 
 > 在这个配置文件中可以配置相应的映射器和解析器
@@ -116,7 +116,7 @@ ExceptionHandlerExceptionResolver	三个bean。
 
 
 - **配置文件详解**
-- 
+-- 
 >在每个配置文件头部中我们可以看到这样一坨的url,这一坨url是命名空间声明和协议位置属性指定
 >
 		xmlns="http://www.springframework.org/schema/beans"
@@ -140,7 +140,7 @@ ExceptionHandlerExceptionResolver	三个bean。
 可以用一个指定的XML Schema来验证某个XML文档，以检查该XML文档是否符合其要求。文档设计者可以通过XML Schema指定一个XML文档所允许的结构和内容，并可据此检查一个XML文档是否是有效的。XML Schema本身是一个XML文档，它符合XML语法结构。可以用通用的XML解析器解析它。
 一个XML Schema会定义：文档中出现的元素、文档中出现的属性、子元素、子元素的数量、子元素的顺序、元素是否为空、元素和属性的数据类型、元素或属性的默认 和固定值。
 那解析配置文件，系统是怎么根据标签元素查询到命名空间的？sax或者dom解析器首先将xml文件转换成内存中的文档document，这个时候会把标签对应的命名空间解析出来并保存到Node中，后面根据node.getNamespaceURI()就可以获取标签对应的命名空间。
->#####xmlns 是xml 命名空间(xml name space)， 用来标识唯一的文件，防止重复或者指向不清晰，命名空间的声明语法是，xmlns : 别名 = namespace的统一资源标识符(URI)：
+> xmlns 是xml 命名空间(xml name space)， 用来标识唯一的文件，防止重复或者指向不清晰，命名空间的声明语法是，xmlns : 别名 = namespace的统一资源标识符(URI)：
 >
 	xmlns:namespace-aliases="namespaceURI"
 >
@@ -160,7 +160,7 @@ ExceptionHandlerExceptionResolver	三个bean。
 	<!--包扫描-->
 	<ttt:component-scan base-package="com.calm.login.dao"/>
 
->####xmlns:xsi
+> xmlns:xsi
 >大家注意到下面的两条有点不同
 >
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -186,7 +186,7 @@ xsi也是一个别名，只是这个别名约定俗成，语意性强，大家�
 ![](img/dispatherServlet-diagram.png)
 
 - DispatcherServlet
-- 
+-- 
 >初始化各个功能的实现类。比如异常处理、视图处理、请求映射处理等。
 >DispatcherServlet是继承自FrameworkServlet，而FrameworkServlet又继承自HttpServletBean，init()方法，就是在HttpServletBean.java中执行的。
 
@@ -213,7 +213,7 @@ xsi也是一个别名，只是这个别名约定俗成，语意性强，大家�
 	...
 	}
 - HttpServletBean
-- 
+-- 
 >主要做一些初始化的工作，将web.xml中配置的参数设置到Servlet中。比如servlet标签的子标签init-param标签中配置的参数。
 >
 >HttpSerlvetBean继承自HttpServlet，它覆写了init方法，对初始化过程做了一些处理。 
@@ -281,7 +281,8 @@ xsi也是一个别名，只是这个别名约定俗成，语意性强，大家�
 >然后设置DispatcherServlet中的contextConfigLocation属性(FrameworkServlet中定义)为web.xml中读取的contextConfigLocation参数，该参数用于构造SpringMVC容器上下文。
 
 - FrameworkServlet
--
+--
+
 >将Servlet与Spring容器上下文关联。其实也就是初始化FrameworkServlet的属性webApplicationContext，这个属性代表SpringMVC上下文，它有个父类上下文，既web.xml中配置的ContextLoaderListener监听器初始化的容器上下文。
 
 >可以看到这里的核心代码只有两句：一句用于初始化WebApplicationContext，另一句用于初始化FrameworkServlet，而且initFrameworkServlet方法是模版方法，子类可以覆盖然后在里面做一些初始化的工作，但子类并没有使用它。
@@ -377,8 +378,10 @@ initWebApplicationContext方法的具体实现逻辑：
 
 ![](img/dispatherServlet-3.png)
 
+
+---
+
 至此，项目已经成功启动。
 Spring MVC中Servlet一共三个层次，分别是HttpServletBean、FrameworkServlet和DispatcherServlet。HttpServletBean直接继承自Java的HttpServlet，其作用是将Servlet中配置的参数设置到相应的属性：FrameworkServlet初始化了WebApplicationContext，DispatcherServlet初始化了自身的9个组件。
 
-FrameworkServlet初始化WebApplicationContext一共有三种方式，过程中使用了Servlet中配置的一些参数。
- 整体结构非常简单---分三个层次做了三件事，但具体实现过程还是有点复杂的，这其实也是spring的特点：结构简单，实现复杂。结构简单主要是顶层设计好，实现复杂的主要是提供的功能比较多，可配置的地方也非常多。当然，正是因为实现复杂，才让Spring MVC使用起来更加灵活，这一点在后面会有深刻多体会。
+ 整体结构非常简单---分三个层次做了三件事，但实际具体实现过程还是有点复杂的，可配置的地方非常多，让Spring MVC使用起来更加灵活。
