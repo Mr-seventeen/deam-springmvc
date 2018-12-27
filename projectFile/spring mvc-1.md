@@ -316,16 +316,11 @@ IMG插入 servlet.xml图片
 		    WebApplicationContext wac = null;
 		    //如果已经通过构造方法设置了WebApplicationContext
 		    if (this.webApplicationContext != null) {
-		        // A context instance was injected at construction time -> use it
 		        wac = this.webApplicationContext;
 		        if (wac instanceof ConfigurableWebApplicationContext) {
 		            ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
 		            if (!cwac.isActive()) {
-		                // The context has not yet been refreshed -> provide services such as
-		                // setting the parent context, setting the application context id, etc
 		                if (cwac.getParent() == null) {
-		                    // The context instance was injected without an explicit parent -> set
-		                    // the root application context (if any; may be null) as the parent
 		                    cwac.setParent(rootContext);
 		                }
 		                configureAndRefreshWebApplicationContext(cwac);
@@ -333,23 +328,15 @@ IMG插入 servlet.xml图片
 		        }
 		    }
 		    if (wac == null) {
-		        // No context instance was injected at construction time -> see if one
-		        // has been registered in the servlet context. If one exists, it is assumed
-		        // that the parent context (if any) has already been set and that the
-		        // user has performed any initialization such as setting the context id
 		        //当webApplicationContext已经存在ServletContext中时，通过配置在servlet中的contextAttribute参数获取
 		        wac = findWebApplicationContext();
 		    }
 		    if (wac == null) {
-		        // No context instance is defined for this servlet -> create a local one
 		        //如果webApplicationContext还没有创建，则创建一个
 		        wac = createWebApplicationContext(rootContext);
 		    }
 		
 		    if (!this.refreshEventReceived) {
-		        // Either the context is not a ConfigurableApplicationContext with refresh
-		        // support or the context injected at construction time had already been
-		        // refreshed -> trigger initial onRefresh manually here.
 		        //当ContextRefresh事件没有触发时调用此方法，模版方法，可以在子类重写
 		        onRefresh(wac);
 		    }
@@ -397,28 +384,21 @@ initWebApplicationContext方法做了三件事：
 	
 	public class DispatcherServlet extends FrameworkServlet {
 	    ...
-	    /**
-	     * This implementation calls {@link #initStrategies}.
-	     */
 	    @Override
 	    protected void onRefresh(ApplicationContext context) {
 	        initStrategies(context);
 	    }
 	
-	    /**
-	     * Initialize the strategy objects that this servlet uses.
-	     * <p>May be overridden in subclasses in order to initialize further strategy objects.
-	     */
 	    protected void initStrategies(ApplicationContext context) {
-	        initMultipartResolver(context);
-	        initLocaleResolver(context);
-	        initThemeResolver(context);
-	        initHandlerMappings(context);
-	        initHandlerAdapters(context);
-	        initHandlerExceptionResolvers(context);
-	        initRequestToViewNameTranslator(context);
-	        initViewResolvers(context);
-	        initFlashMapManager(context);
+	        initMultipartResolver(context);//用于处理上传请求。
+	        initLocaleResolver(context);// 解析视图
+	        initThemeResolver(context);//用于解析主题。
+	        initHandlerMappings(context);//查找Handler的
+	        initHandlerAdapters(context);//请求的时候是如何找到正确的Controller
+	        initHandlerExceptionResolvers(context);//异常处理机制
+	        initRequestToViewNameTranslator(context);//从request中获取ViewName
+	        initViewResolvers(context);//视图机制
+	        initFlashMapManager(context);//用来管理FlashMap的，FlashMap主要用在redirect中传递参数。
 	    }
 	    ...
 	}
@@ -432,4 +412,19 @@ Spring MVC中Servlet一共三个层次，分别是HttpServletBean、FrameworkSer
 
 FrameworkServlet初始化WebApplicationContext一共有三种方式，过程中使用了Servlet中配置的一些参数。
  整体结构非常简单---分三个层次做了三件事，但具体实现过程还是有点复杂的，这其实也是spring的特点：结构简单，实现复杂。结构简单主要是顶层设计好，实现复杂的主要是提供的功能比较多，可配置的地方也非常多。当然，正是因为实现复杂，才让Spring MVC使用起来更加灵活，这一点在后面会有深刻多体会。
+
+
+
+Handler的概念，也就是处理器。它直接应对着MVC中的C也就是Controller层，它的具体表现形式有很多，可以是类，也可以是方法。在Controller层中@RequestMapping标注的所有方法都可以看成是一个Handler，只要可以实际处理请求就可以是Handler。
+
+
+- @RequestMapping 
+
+Spring MVC 使用 @RequestMapping 注解为控制器指定可 以处理哪些 URL 请求
+•	在控制器的类定义及方法定义处都可标注
+@RequestMapping
+–	类定义处：提供初步的请求映射信息。相对于 WEB 应用的根目录
+–  方法处：提供进一步的细分映射信息。相对于类定义处的 URL。若 类定义处未标注 @RequestMapping，则方法处标记的 URL 相对于 WEB 应用的根目录
+DispatcherServlet 截获请求后，就通过控制器上
+@RequestMapping 提供的映射信息确定请求所对应的处理 方法。
 

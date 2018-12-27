@@ -19,17 +19,9 @@ import org.springframework.web.context.WebApplicationContext;
  * @date 2018/12/24
  */
 @Controller
-public class HelloController implements EnvironmentAware, EnvironmentCapable {
+public class HelloController  {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
-
-    /**
-     * 处理HEAD类型的"/"请求
-     * */
-    @RequestMapping(value = {"/"},method = {RequestMethod.HEAD})
-    public String head(){
-        return "index.jsp";
-    }
 
     @RequestMapping(value = {"/","index"},method = {RequestMethod.GET})
     public String index(Model model){
@@ -38,17 +30,7 @@ public class HelloController implements EnvironmentAware, EnvironmentCapable {
         return "index.jsp";
     }
 
-    private Environment environment;
 
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
-    public Environment getEnvironment() {
-        return null;
-    }
 
 
 }
