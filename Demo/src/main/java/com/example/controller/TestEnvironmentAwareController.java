@@ -25,7 +25,6 @@ public class TestEnvironmentAwareController implements EnvironmentAware {
     @RequestMapping(value = { "/test-awarex", }, method = { RequestMethod.GET })
     public String testawarex(Model model) throws Exception {
         logger.info("==========this is TestEnvironmentAwareController--> setEnvironment=========");
-        // 这里设置断点
         model.addAttribute("msg", "Go Go Go!");
         return "go.jsp";
     }

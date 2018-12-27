@@ -24,6 +24,8 @@ public class HelloWebDispatcherServlet extends DispatcherServlet {
 
     @Override
     public void initBeanWrapper(BeanWrapper bw) {
+        this.getServletConfig();
+        this.getServletContext();
         logger.info("HelloWebDispatcherServlet --> initBeanWrapper" + bw.getWrappedClass().getCanonicalName());
     }
 

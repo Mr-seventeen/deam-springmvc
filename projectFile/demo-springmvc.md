@@ -12,14 +12,22 @@
 首先我们要创建一个简单的Spring MVC的demo，
 
 步骤：
+
 1、在pom.xml文件里添加依赖
+
 2、在 web.xml 中配置 DispatcherServlet
+
 3、加入 Spring MVC 的配置文件
+
 4、编写Controller请求的处理器
+
 5、写页面
 
-我们首先从配置文件讲起
+
 ![](img/project.png)
+
+我们首先从配置文件讲起
+
 # 1、配置文件
 
 一个简单的Sping MVC项目中用到的配置文件主要有**pom.xml、web.xml、*-servlet.xml** 这三类
