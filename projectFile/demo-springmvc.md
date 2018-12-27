@@ -104,15 +104,7 @@
 > 
 > <mvc:annotation-driven /> 会自动注 册RequestMappingHandlerMapping
 、RequestMappingHandlerAdapter 与
-ExceptionHandlerExceptionResolver	三个bean。
-•	还将提供以下支持：
-支持使用 ConversionService 实例对表单参数进行类型转换
-支持使用 @NumberFormat annotation、@DateTimeFormat
-注解完成数据类型的格式化
-–	支持使用 @Valid 注解对 JavaBean 实例进行 JSR 303 验证
-支持使用 @RequestBody 和 @ResponseBody 注解
-
-![](img/webconfig.png)
+ExceptionHandlerExceptionResolver	三个bean。支持表单转换参数、数据格式化等
 
 
 - **配置文件详解**
@@ -185,6 +177,7 @@ xsi也是一个别名，只是这个别名约定俗成，语意性强，大家�
 
 ![](img/dispatherServlet-diagram.png)
 
+![](img/dispatherServlet-3.png)
 - DispatcherServlet
 -- 
 >初始化各个功能的实现类。比如异常处理、视图处理、请求映射处理等。
@@ -227,8 +220,7 @@ xsi也是一个别名，只是这个别名约定俗成，语意性强，大家�
 		    	}
 		    	// Set bean properties from init parameters.
 		    	try {
-			    	//将Servlet中配置的参数封装到pvs变量中，requiredProperties为必需参数，如果没有配置将报异常
-					//ServletConfigPropertyValues是HttpServletBean内部静态类，构造过程中会使用ServlertConfig对象找出web.xml配置文件中的配置参数并设置到ServletConfigPropertyValues内
+					//ServletConfigPropertyValues是HttpServletBean内部静态类，使用ServlertConfig对象找出web.xml配置文件中的配置参数并设置到ServletConfigPropertyValues内，封装到pvs变量中
 			    	PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
 					//使用PropertyAccessorFactory封装成BeanWrapper，那么BeanWrapper是什么呢？
 					//使用BeanWrapper构造DispatcherServlet
