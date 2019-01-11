@@ -1,7 +1,10 @@
+import com.google.common.collect.Iterables;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.beans.PropertyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BeanWrapperTest {
 
@@ -16,6 +19,10 @@ public class BeanWrapperTest {
         System.out.println(user.getUserName());// 输出李四
         PropertyValue value2 = new PropertyValue("age", "111");
         bw.setPropertyValue(value2);
+//        new Iterable<>()
+
+        List<List<String>> list = new ArrayList<List<String>>();
+//        List<String> listNew = Iterables.concat(list);
     }
 
     public static class User {
@@ -26,6 +33,8 @@ public class BeanWrapperTest {
         public void setUserName(String userName){
             this.userName = userName;
         }
+
+
     }
 
 

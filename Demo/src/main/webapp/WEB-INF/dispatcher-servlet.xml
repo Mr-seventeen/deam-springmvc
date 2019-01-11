@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--spring mvc 提供的一键式配置方法，此标签会让spring mvc 帮我们自动做一些注册组件 -->
+
+    <!--扫描对应的控制器-->
+    <context:component-scan base-package="com.example"/>
+    <!--开启注解驱动，简化配置-->
+    <!-- 添加后将不会全部使用默认配置 AnnotationDrivenBeanDefinitionParser -->
+    <mvc:annotation-driven/>
+    <!--启动默认的Servlet映射器，用于处理静态资源-->
+    <mvc:default-servlet-handler/>
+</beans>
