@@ -1,7 +1,5 @@
 package lombok;
 
-import sun.org.mozilla.javascript.internal.annotations.JSSetter;
-
 /**
  * @Author: qixiujuan
  * @Describe Student
