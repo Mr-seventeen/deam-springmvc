@@ -16,7 +16,6 @@ class SpockTest extends Specification{
     def setupSpec() {
         productList = new ArrayList<>()
         productList.add("1")
-        print()
     }
 
     def "demoTest_demo测试方法"(){
