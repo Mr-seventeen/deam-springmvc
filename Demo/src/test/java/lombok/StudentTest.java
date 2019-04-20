@@ -1,20 +1,15 @@
 package lombok;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.internal.runners.JUnit4ClassRunner;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.ws.rs.core.Context;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author: qixiujuan
@@ -40,7 +35,7 @@ public class StudentTest {
         noArgsStudent.setName("qixiujuan");
         noArgsStudent.setCode("XDF0419");
         log.info("this is student and name is {} code is {}", noArgsStudent.getCode(), noArgsStudent.getName());
-        Student allArgsStudent = new Student("XDF0420","zhangyixing",1, "001");
+        Student allArgsStudent = new Student("XDF0420","zhangyixing",1, "001", 1 , new Date());
         log.info("this is allArgsStudent and name is {} code is {}", allArgsStudent.getCode(), allArgsStudent.getName());
 
         log.info("compara result is {}",noArgsStudent.equals(allArgsStudent));

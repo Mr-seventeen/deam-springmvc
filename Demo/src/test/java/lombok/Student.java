@@ -1,5 +1,7 @@
 package lombok;
 
+import java.util.Date;
+
 /**
  * @Author: qixiujuan
  * @Describe Student
@@ -18,4 +20,7 @@ public class Student extends Parent{
     private String name;
     private Integer grande;
     private String schoolCode;
+    private Integer status;
+    private Date beginTime;
+
 }

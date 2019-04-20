@@ -23,6 +23,8 @@ public class BeanWrapperTest {
 
         List<List<String>> list = new ArrayList<List<String>>();
 //        List<String> listNew = Iterables.concat(list);
+
+
     }
 
     public static class User {
