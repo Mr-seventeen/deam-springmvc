@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.bk.SpockTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.882 s <<< FAILURE! - in com.bk.SpockTest
+mainTest_第一个测试方法(com.bk.SpockTest)  Time elapsed: 0.037 s  <<< ERROR!
+groovy.lang.MissingMethodException: No signature of method: com.bk.SpockTest.reportInfo() is applicable for argument types: (String) values: [测试方法-xj.q]
+	at com.bk.SpockTest.mainTest_第一个测试方法(SpockTest.groovy:28)
+
+mainTest_第一个测试方法(com.bk.SpockTest)  Time elapsed: 0.048 s  <<< ERROR!
+groovy.lang.MissingMethodException: No signature of method: com.bk.SpockTest.reportInfo() is applicable for argument types: (String) values: [测试方法-xj.q]
+	at com.bk.SpockTest.mainTest_第一个测试方法(SpockTest.groovy:28)
+
+mainTest_第一个测试方法(com.bk.SpockTest)  Time elapsed: 0.052 s  <<< ERROR!
+groovy.lang.MissingMethodException: No signature of method: com.bk.SpockTest.reportInfo() is applicable for argument types: (String) values: [测试方法-xj.q]
+	at com.bk.SpockTest.mainTest_第一个测试方法(SpockTest.groovy:28)
+
+mainTest_第一个测试方法(com.bk.SpockTest)  Time elapsed: 0.055 s  <<< ERROR!
+groovy.lang.MissingMethodException: No signature of method: com.bk.SpockTest.reportInfo() is applicable for argument types: (String) values: [测试方法-xj.q]
+	at com.bk.SpockTest.mainTest_第一个测试方法(SpockTest.groovy:28)
+
