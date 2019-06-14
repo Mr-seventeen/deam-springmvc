@@ -1,6 +1,9 @@
 package java8;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -80,8 +83,6 @@ public class StreamTest {
                 .map(w -> w.split(""))
                 .flatMap(Arrays::stream)
                 .distinct()
-                .sorted()
-                .reduce()
                 .collect(Collectors.toList());
 
         List<Integer> num1 = Arrays.asList(1,2,3);
@@ -119,4 +120,103 @@ public class StreamTest {
 
     }
 
+    @Test
+    public void iterateTest(){
+        Stream.iterate(0, n -> n+2).limit(10).forEach(System.out::println);
+        /**
+         * 斐波纳契元组序列
+         */
+        Stream.iterate(new int[]{0,1}, t -> new int[]{t[1], t[0]+t[1]})
+                .limit(20)
+                .forEach(t -> System.out.println("参数："+t[0]+" and :"+t[1]));
+    }
+
+    @Test
+    public void generateTest(){
+        Stream.generate(Math::random).limit(5).forEach(System.out::println);
+    }
+
+    /**
+     * 终端操作
+     */
+    @Test
+    public void finalOptionTest(){
+        List<Person> persons = Arrays.asList(
+                new Person("Max", 18, 2),
+                new Person("Peter", 23, 3),
+                new Person("Pamela", 23, 2),
+                new Person("David", 12, 3));
+        persons.stream().forEach(p -> System.out.println("结果"+p.getName()));
+        persons.stream().count();
+        persons.stream().findFirst();
+        // 根据一定的规则将Stream中的元素进行计算后返回一个唯一的值
+        Optional<Person> op = persons.stream().reduce((person, person2) -> person.getAge() > person2.getAge() ? person : person2);
+    }
+
+    @Test
+    public void collectorsTest() {
+//        Collectors.toList()
+    }
+    List<Person> persons = Arrays.asList(
+            new Person("Max", 18, 2),
+            new Person("Peter", 23, 3),
+            new Person("Pamela", 23, 2),
+            new Person("David", 12, 3));
+    @Test
+    public void thirdMethod() {
+        int youngAge = 18;
+        Predicate<Person> agePerson = person -> person.getAge() >= youngAge;
+        Predicate<Person> namePerson = p -> p.getName().length() > 3;
+        Consumer<Person> personConsumer = p -> p.setAge(p.getAge() + 10);
+
+        persons.stream().forEach(personConsumer);
+        persons.stream()
+                .filter(agePerson)
+                .filter(namePerson)
+                .forEach(person -> System.out.println("name : "+ person.getName() +"age :"+ person.getAge()));
+
+        Function<Person, Integer> function = p -> p.getAge();
+    }
+
+    @Test
+    public void testMethod() {
+        List<Integer> integers = Arrays.asList(1, 6, 2, 3, 4);
+        integers.stream().forEach(s -> System.out.println("传入数据："+ s));
+        Collections.reverse(integers);
+        integers.stream()
+                .map(i -> (Consumer<Runnable>) runnable -> {
+                        System.out.println(i);
+                        runnable.run();
+                })
+                .reduce((Runnable) () -> System.out.println("ok"),
+                        (result, fun) -> () -> fun.accept(result),
+                        (x, y) -> x)
+                .run();
+
+        integers.stream()
+                .map(i -> {
+                    return (Consumer<Runnable>) runnable -> {
+                        System.out.println(i);
+                        runnable.run();
+                    };
+                })
+                .reduce((Runnable) () -> System.out.println("ok"), (result, fun) -> () -> {
+                    fun.accept(result);
+                }, (x, y) -> {
+                    return x;
+                })
+                .run();
+    }
+
+    @Test
+    public void collectMethodTest(){
+
+        persons.stream().collect(Collectors.toSet());
+        persons.stream().collect(Collectors.summarizingInt(Person::getAge));
+/*        persons.stream().collect(Collectors.toList()
+                .characteristics()
+                .add()
+        );*/
+        persons.stream().collect(Collectors.toList());
+    }
 }

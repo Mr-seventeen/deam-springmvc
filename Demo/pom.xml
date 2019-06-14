@@ -108,6 +108,55 @@
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
     -->
+      <dependency>
+          <groupId>org.springframework.batch</groupId>
+          <artifactId>spring-batch-admin-resources</artifactId>
+          <version>1.3.1.RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.batch</groupId>
+          <artifactId>spring-batch-admin-manager</artifactId>
+          <version>1.3.1.RELEASE</version>
+      </dependency>
+      <!-- Spring Retry重试机制 -->
+      <dependency>
+          <groupId>org.springframework.retry</groupId>
+          <artifactId>spring-retry</artifactId>
+          <version>1.2.4.RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <version>2.1.4.RELEASE</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>ch.qos.logback</groupId>
+                  <artifactId>logback-classic</artifactId>
+              </exclusion>
+          </exclusions>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <version>2.1.4.RELEASE</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.9.3</version>
+      </dependency>
+      <!-- Spring Retry重试机制 -->
+     <!-- <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>1.6.1</version>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.2.3</version>
+      </dependency>-->
   </dependencies>
 
   <build>
